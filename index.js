@@ -1,4 +1,5 @@
 import fs from "fs";
+import { exec } from "child_process";
 
 const projectPath =
   "C:/Users/franc/Desktop/Workspace/projects/js/fran-testing-library";
@@ -28,7 +29,28 @@ async function getAllTests(currentPath, pathList = [], allRoutePaths = []) {
 
 const allTestFiles = async () => {
   const allFiles = await getAllTests(projectPath);
-  console.log(allFiles);
+  const allFunctionsTests = fs.readFileSync("./testAPI/index.js", "utf8");
+  const allFilesContent = allFiles.map((file) => {
+    const contentFile = fs.readFileSync(file, "utf8");
+    return { filePath: file, contentFile };
+  });
+  allFilesContent.forEach(async (file) => {
+    await fs.promises.writeFile(
+      file.filePath,
+      `${allFunctionsTests}\n${file.contentFile}`,
+      "ascii"
+    );
+  });
+  //ejecutamos los scripts
+  allFiles.forEach((file) => {
+    exec(`node ${file}`, { encoding: "utf8" }, (err, stdout, stderr) => {
+      console.log(stdout);
+      console.log(stderr);
+      allFilesContent.forEach((file) => {
+        fs.writeFileSync(file.filePath, file.contentFile, "ascii");
+      });
+    });
+  });
 };
 
 allTestFiles();
