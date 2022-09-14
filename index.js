@@ -1,10 +1,13 @@
 #!/usr/bin/env node
+const path = require("path");
+const fs = require("fs");
+const { exec } = require("child_process");
 
-import fs from "fs";
-import { exec } from "child_process";
+const currentPath = __dirname.split(path.sep);
+currentPath.pop();
+currentPath.pop();
 
-const projectPath =
-  "C:/Users/franc/Desktop/Workspace/projects/js/fran-testing-library";
+const projectPath = currentPath.join("/");
 
 async function getAllTests(currentPath, pathList = [], allRoutePaths = []) {
   pathList.pop();
