@@ -32,11 +32,12 @@ async function getAllTests(currentPath, pathList = [], allRoutePaths = []) {
   }
 }
 
-console.log("ejecutandose");
-
 const allTestFiles = async () => {
   const allFiles = await getAllTests(projectPath);
-  const allFunctionsTests = fs.readFileSync("./testAPI/index.js", "utf8");
+  const allFunctionsTests = fs.readFileSync(
+    path.join(__dirname, "testAPI", "index.js"),
+    "utf8"
+  );
   const allFilesContent = allFiles.map((file) => {
     const contentFile = fs.readFileSync(file, "utf8");
     return { filePath: file, contentFile };
