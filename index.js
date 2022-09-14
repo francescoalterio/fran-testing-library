@@ -29,6 +29,8 @@ async function getAllTests(currentPath, pathList = [], allRoutePaths = []) {
   }
 }
 
+console.log("ejecutandose");
+
 const allTestFiles = async () => {
   const allFiles = await getAllTests(projectPath);
   const allFunctionsTests = fs.readFileSync("./testAPI/index.js", "utf8");
