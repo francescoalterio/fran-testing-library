@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 const path = require("path");
 const fs = require("fs");
-const { exec } = require("child_process");
+const util = require("node:util");
+const exec = util.promisify(require("node:child_process").exec);
 
 const currentPath = __dirname.split(path.sep);
 currentPath.pop();
