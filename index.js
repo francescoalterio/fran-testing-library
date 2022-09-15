@@ -50,18 +50,15 @@ const allTestFiles = async () => {
     );
   });
   const timeStart = Date.now();
-  allFiles.forEach((file, index) => {
-    exec(`node ${file}`, { encoding: "utf8" }, (err, stdout, stderr) => {
-      console.log(stdout);
-      console.log(stderr);
-      allFilesContent.forEach((file) => {
-        fs.writeFileSync(file.filePath, file.contentFile, "ascii");
-      });
-      if (index === allFiles.length - 1) {
-        const timeEnd = Date.now();
-        console.log(`TIME: ${timeEnd - timeStart}ms`);
-      }
-    });
+  allFilesContent.forEach(async (file, index) => {
+    const { stdout, stderr } = await exec(`node ${file.filePath}`);
+    console.log(stdout);
+    console.log(stderr);
+    fs.writeFileSync(file.filePath, file.contentFile, "ascii");
+    if (index === allFilesContent.length - 1) {
+      const timeEnd = Date.now();
+      console.log(`TIME: ${timeEnd - timeStart}ms`);
+    }
   });
 };
 
