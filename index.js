@@ -49,7 +49,7 @@ const allTestFiles = async () => {
       "ascii"
     );
   });
-  //ejecutamos los scripts
+  console.time("TIME");
   allFiles.forEach((file) => {
     exec(`node ${file}`, { encoding: "utf8" }, (err, stdout, stderr) => {
       console.log(stdout);
@@ -59,6 +59,7 @@ const allTestFiles = async () => {
       });
     });
   });
+  console.timeEnd("TIME");
 };
 
 allTestFiles();
