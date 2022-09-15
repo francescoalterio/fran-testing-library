@@ -2,7 +2,7 @@
 
 <!-- copied from Getting Started docs, links updated to point to Jest website -->
 
-### Install Jest using npm
+### Install fran-testing-library using npm
 
 ```bash
 npm install fran-testing-library
@@ -22,9 +22,9 @@ module.exports = sum;
 Then, create a file named `sum.test.js`. This will contain our actual test:
 
 ```javascript
-const sum = require('./sum');
+const sum = require("./sum");
 
-test('adds 1 + 2 to equal 3', () => {
+test("adds 1 + 2 to equal 3", () => {
   expect(sum(1, 2)).toBe(3);
 });
 ```
