@@ -50,7 +50,7 @@ const allTestFiles = async () => {
     );
   });
   const timeStart = Date.now();
-  allFiles.forEach((file) => {
+  allFiles.forEach((file, index) => {
     exec(`node ${file}`, { encoding: "utf8" }, (err, stdout, stderr) => {
       console.log(stdout);
       console.log(stderr);
