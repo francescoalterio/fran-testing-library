@@ -49,7 +49,7 @@ const allTestFiles = async () => {
       "ascii"
     );
   });
-  console.time("TIME");
+  const timeStart = Date.now();
   allFiles.forEach((file) => {
     exec(`node ${file}`, { encoding: "utf8" }, (err, stdout, stderr) => {
       console.log(stdout);
@@ -57,9 +57,12 @@ const allTestFiles = async () => {
       allFilesContent.forEach((file) => {
         fs.writeFileSync(file.filePath, file.contentFile, "ascii");
       });
+      if (index === allFiles.length - 1) {
+        const timeEnd = Date.now();
+        console.log(`TIME: ${timeEnd - timeStart}ms`);
+      }
     });
   });
-  console.timeEnd("TIME");
 };
 
 allTestFiles();
