@@ -51,14 +51,25 @@ const allTestFiles = async () => {
     );
   });
   const timeStart = Date.now();
+  let countPass = 0;
+  let countFail = 0;
   allFilesContent.forEach(async (file, index) => {
     const { stdout, stderr } = await exec(`node ${file.filePath}`);
     console.log(stdout);
     console.log(stderr);
+
+    const stdoutSplited = stdout.split("\n").join(" ").split(" ");
+    const wordPassRepeat = stdoutSplited.filter((word) => word === "PASS");
+    const wordFailRepeat = stdoutSplited.filter((word) => word === "FAIL");
+    countPass += wordPassRepeat.length;
+    countFail += wordFailRepeat.length;
     fs.writeFileSync(file.filePath, file.contentFile, "ascii");
     if (index === allFilesContent.length - 1) {
       const timeEnd = Date.now();
       console.log(`TIME: ${timeEnd - timeStart}ms`);
+      console.log(`TEST COUNT: ${countPass + countFail}`);
+      console.log(`PASSED TESTS: ${countPass}`);
+      console.log(`FAILED TESTS: ${countFail}`);
     }
   });
 };
