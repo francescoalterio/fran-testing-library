@@ -1,6 +1,6 @@
 {
   "name": "fran-testing-library",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "library for testing",
   "main": "index.js",
   "bin": {
